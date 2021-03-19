@@ -1,0 +1,16 @@
+
+
+<table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Kiralık Alan</th>
+        <th scope="col">Araba Markası</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rentalDetail of rentalDetails">
+        <td>{{rentalDetail.fullName}}</td>
+        <td>{{rentalDetail.brandName}}</td>
+      </tr>
+    </tbody>
+  </table>
