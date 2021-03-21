@@ -36,4 +36,16 @@ export class BrandComponent implements OnInit {
       return "list-group-item"
     }
   }
+
+  getAllBrandClass() {
+    if (this.currentBrand.id==0) {
+      return 'list-group-item active';
+    } else {
+      return 'list-group-item';
+    }
+  }
+
+  setAllBrand(){
+    return this.currentBrand={id:0, description:"Tüm Ürünleri"};
+  }
 }
