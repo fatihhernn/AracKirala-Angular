@@ -16,47 +16,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let carDetail of carDetails" >
-      <td>{{carDetail.brandName}}</td>
-      <td>{{carDetail.colorName}}</td>
-      <td>{{carDetail.dailyPrice}}</td>
-      <td>{{carDetail.description}}</td>
+    <tr *ngFor="let car of carDetails" routerLink="/cardetail/{{ car.carId }}" >
+      <td>{{car.brandName}}</td>
+      <td>{{car.colorName}}</td>
+      <td>{{car.dailyPrice}}</td>
+      <td>{{car.description}}</td>
     </tr>
+    
   </tbody>
 </table>
-<!-- <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div *ngFor="let image of carImages let i=index" [ngClass]="getSliderClassName(i)" >
-      <img width="300" height="300" src="{{urlPath}}/{{image.imagePath}}"  class="d-block w-100" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"  data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col"  *ngFor="let carDetail of carDetails">
-    <div class="card" >
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{carDetail.brandName}} -- {{carDetail.description}}</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Renk : {{carDetail.colorName}}</li>
-        <li class="list-group-item">Günlük Fiyat : {{carDetail.dailyPrice | currency}}</li>
-      </ul>
-      <div class="card-body">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div> -->
-    <!-- </div>
-  </div>
-</div> -->
-

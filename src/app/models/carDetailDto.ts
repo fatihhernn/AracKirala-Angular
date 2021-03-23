@@ -1,10 +1,10 @@
 export interface CarDetailDto{
     carId:number
     description:string
-    brandId:string
+    brandId:number
     brandName:string
     colorName:string
     dailyPrice:number
     colorId:number
-    carDetails:string
+    
 }

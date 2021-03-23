@@ -2,5 +2,5 @@
     carImageId:number
     carId:number
     imagePath:string
-    date:Date
+    imageDate:Date
 }
