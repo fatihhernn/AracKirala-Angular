@@ -1,7 +1,10 @@
 <ul class="list-group">
+  
+
   <li  (click)="setAllBrand()" [class]="getAllBrandClass()" routerLink="/cars">
     Tüm Markalar
   </li>
+
   <li
     (click)="setCurrentBrand(brand)"
     routerLink="/cars/brand/{{ brand.id }}"

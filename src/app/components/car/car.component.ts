@@ -18,6 +18,8 @@ export class CarComponent implements OnInit {
   carImages:CarImage[]=[]
 
   dataLoaded = false;
+  txtColor=""
+  txtBrand=""
 
   constructor(private carService:CarService,private activatedRoute:ActivatedRoute,private carImageService:CarImageService) { }
 
