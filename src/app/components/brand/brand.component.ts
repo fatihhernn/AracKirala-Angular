@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Brand } from 'src/app/models/brand';
+import { Filters } from 'src/app/models/filters';
 import { BrandService } from 'src/app/services/brand.service';
 
 @Component({
@@ -8,44 +10,38 @@ import { BrandService } from 'src/app/services/brand.service';
   styleUrls: ['./brand.component.css'],
 })
 export class BrandComponent implements OnInit {
+  dataLoaded = false;
+
   brands: Brand[] = [];
 
-  currentBrand: Brand = { description: '', id: 0 };
+  currentBrand: Brand;
+  allBrand?: Brand;
+  Filters = {};
 
-  constructor(private brandService: BrandService) {}
+  constructor(
+    private brandService: BrandService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getBrands(); 
+    this.getBrands();
   }
 
   getBrands() {
     this.brandService.getBrands().subscribe((response) => {
       this.brands = response.data;
+      this.dataLoaded = true;
     });
   }
 
-  setCurrentBrand(brand: Brand) {
-    this.currentBrand=brand
-  }
-
-  getCurrentBrandClass(brand:Brand){
-    if (brand==this.currentBrand) {
-      return "list-group-item list-group-item-success"
-    }
-    else{
-      return "list-group-item"
-    }
-  }
-
-  getAllBrandClass() {
-    if (this.currentBrand.id==0) {
-      return 'list-group-item list-group-item-success';
-    } else {
-      return 'list-group-item';
-    }
-  }
-
-  setAllBrand(){
-    return this.currentBrand={id:0, description:"Tüm Ürünleri"};
-  }
+  setCurrentBrand(){
+    this.currentBrand !== undefined
+      ? (Filters.brandId = this.currentBrand.id)
+      : (Filters.brandId = null);
+  } 
+  
+  allBrandSelected(){
+    return this.currentBrand == undefined ? true : false;
+  } 
 }

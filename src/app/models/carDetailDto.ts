@@ -7,4 +7,5 @@ export interface CarDetailDto{
     dailyPrice:number
     colorId:number
     
+    
 }

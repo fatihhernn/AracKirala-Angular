@@ -1,14 +1,15 @@
-<ul class="list-group">
-    <li  (click)="setAllColor()" [class]="getAllColorClass()" routerLink="/cars">
-        Tüm Renkler
-      </li>
-  <li
-    *ngFor="let color of colors"
-    (click)="setCurrentColor(color)"
-    routerLink="/cars/color/{{ color.id }}"
-    
-    [class]="getCurrentColorClass(color)"
-  >
-    {{ color.description }}
-  </li>
-</ul>
+<form>
+  <div class="mb-3">
+    <span class="d-block p-2 bg-dark text-white">Renkler</span>
+
+    <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <select [(ngModel)]="currentColor" (change)="setCurrentColor()" name="colorSelect" class="form-select mb-1" aria-label="Default select example" >
+      <option [selected]="allColorsSelected()" [ngValue]="allColor">Tüm Renkler</option>
+      <option *ngFor="let color of colors" [ngValue]="color"> {{ color.description }} </option>
+    </select>
+
+  </div>
+</form>

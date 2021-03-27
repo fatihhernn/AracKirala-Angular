@@ -1,17 +1,15 @@
-<ul class="list-group">
-  
+<form>
+  <div class="mb-3">
+    <span class="d-block p-2 bg-dark text-white">Markalar</span>
 
-  <li  (click)="setAllBrand()" [class]="getAllBrandClass()" routerLink="/cars">
-    Tüm Markalar
-  </li>
+    <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    
+    <select (change)="setCurrentBrand()" [(ngModel)]="currentBrand" name="brandSelect" class="form-select" aria-label="Markalar">
+      <option [ngValue]="allBrand" [selected]="allBrandSelected()" >Tüm Markalar</option>
+      <option [ngValue]="brand" *ngFor="let brand of brands" >{{ brand.description }}</option>
+    </select>
 
-  <li
-    (click)="setCurrentBrand(brand)"
-    routerLink="/cars/brand/{{ brand.id }}"
-    *ngFor="let brand of brands"
-    [class]="getCurrentBrandClass(brand)"
-  >
-    {{ brand.description }}
-  </li>
-</ul>
-
+  </div>
+</form>
