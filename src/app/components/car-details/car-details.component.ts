@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarDetailDto } from 'src/app/models/carDetailDto';
 import { CarImage } from 'src/app/models/carImage';
@@ -15,9 +16,12 @@ export class CarDetailsComponent implements OnInit {
 
   carDetail: CarDetailDto={brandId:0,brandName:"",carId:0,colorId:0,colorName:"",dailyPrice:0,description:""};
   carImages: CarImage[] = [];
+
+  _isCarRented :boolean;
+
   carImageBasePath = "https://localhost:44314";
   
-  constructor(private carService:CarService,private activatedRoute:ActivatedRoute,private carImageService:CarImageService) { }
+  constructor(private carService:CarService,private activatedRoute:ActivatedRoute,private carImageService:CarImageService,private toastrService:ToastrService) { }
 
   ngOnInit(): void {
    
@@ -53,5 +57,20 @@ export class CarDetailsComponent implements OnInit {
   } 
 
  
+  isCarRented(carId:number){
+    this.carService.isCarRented(carId).subscribe(response=>{
+
+      this._isCarRented=response.success
+
+      if (this._isCarRented===true) {
+        console.log("bu araba kiralanabilr")
+       
+      }
+      
+    },responseError=>{
+      console.log(responseError.error)
+      this.toastrService.error(responseError.error)
+    })
+  }
 
 }
