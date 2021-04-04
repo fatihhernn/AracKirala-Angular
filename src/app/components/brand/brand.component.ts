@@ -39,9 +39,9 @@ export class BrandComponent implements OnInit {
     this.currentBrand !== undefined
       ? (Filters.brandId = this.currentBrand.id)
       : (Filters.brandId = null);
-  } 
-  
-  allBrandSelected(){
+  }
+
+  allBrandSelected():boolean{
     return this.currentBrand == undefined ? true : false;
-  } 
+  }
 }

@@ -115,7 +115,11 @@ export class CarDetailsComponent implements OnInit {
       this.toastrService.error('Kiralama Tarihi ve Teslim Tarihi aynı olamaz.');
       return;
     } else {
-      this.toastrService.info('Bilgileriniz kontrol ediliyor.');
+      
+        this.toastrService.info(
+          'Bilgileriniz kontrol ediliyor.'
+        );
+     
     }
 
     this.carId = carDetail.carId;
@@ -167,10 +171,13 @@ export class CarDetailsComponent implements OnInit {
         }
       },
       (error) => {
-        this.toastrService.error(
-          'The car cannot be rented on the requested dates.',
-          'Kiralama Başarısız'
-        );
+        setTimeout(() => {
+          this.toastrService.error(
+            'İstenilen Tarih için kiralama yapılamıyor',
+            'Kiralama Başarısız'
+          );
+        }, 1000);
+        
       }
     );
   }

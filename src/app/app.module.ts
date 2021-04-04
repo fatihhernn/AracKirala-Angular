@@ -15,12 +15,16 @@ import { RentalComponent } from './components/rental/rental.component';
 import { NaviComponent } from './components/navi/navi.component';
 import { CarDetailsComponent } from './components/car-details/car-details.component';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrandPipePipe } from './pipes/brand-pipe.pipe';
 import { ColorPipePipe } from './pipes/color-pipe.pipe';
 import { CarFilterComponent } from './components/car-filter/car-filter.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
+
+
+
 
 
 
@@ -40,6 +44,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     CarFilterComponent,
     PaymentComponent,
     SidebarComponent,
+    CarAddComponent
   ],
   imports: [
     BrowserModule,
@@ -47,10 +52,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     HttpClientModule,
     FormsModule,
     ToastrModule.forRoot({
-      positionClass:"toast-top-center"
+      positionClass: 'toast-bottom-right'
     }),
     BrowserAnimationsModule,
- 
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
