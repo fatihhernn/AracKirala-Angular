@@ -23,4 +23,7 @@ export class RentalComponent implements OnInit {
       this.rentalDetails = response.data;
     });
   }
+
+
+  
 }

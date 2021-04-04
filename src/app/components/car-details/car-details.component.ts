@@ -17,6 +17,7 @@ import { PaymentService } from 'src/app/services/payment.service';
   styleUrls: ['./car-details.component.css'],
 })
 export class CarDetailsComponent implements OnInit {
+  
   carDetail: CarDetailDto = {
     brandId: 0,
     brandName: '',
@@ -26,6 +27,8 @@ export class CarDetailsComponent implements OnInit {
     dailyPrice: 0,
     description: '',
   };
+
+
   carImages: CarImage[] = [];
   customers: Customer[] = [];
   customerId: Number;
@@ -66,6 +69,9 @@ export class CarDetailsComponent implements OnInit {
     });
     this.getCustomersDetails();
   }
+
+
+
   getCarDetailsById(carId: number) {
     this.carService.getCarByCarId(carId).subscribe((response) => {
       this.carDetail = response.data[0];
@@ -95,16 +101,19 @@ export class CarDetailsComponent implements OnInit {
   createRentalRequest(carDetail: CarDetailDto) {
     if (this.customerId === undefined) {
       this.toastrService.warning('Müşteri bilgisini kontrol ediniz.');
+      return;
     } else if (this.rentDate === undefined || !this.rentDate) {
       this.toastrService.warning('Alış Tarihi bilgisini kontrol ediniz.');
+      return;
     } else if (this.returnDate === undefined || !this.returnDate) {
       this.toastrService.warning('Teslim Tarihi bilgisini kontrol ediniz.');
+      return;
     } else if (this.returnDate < this.rentDate) {
-      this.toastrService.error(
-        'Teslim Tarihi, Kiralama Tarihinde önce seçilemez.'
-      );
-    } else if (this.returnDate == this.rentDate) {
+      this.toastrService.error('Teslim Tarihi, Kiralama Tarihinde önce seçilemez.');
+      return;
+    } else if (this.returnDate === this.rentDate) {
       this.toastrService.error('Kiralama Tarihi ve Teslim Tarihi aynı olamaz.');
+      return;
     } else {
       this.toastrService.info('Bilgileriniz kontrol ediliyor.');
     }
@@ -135,10 +144,9 @@ export class CarDetailsComponent implements OnInit {
         this.amountPaye = numberOfDays * this.carDailyPrice;
 
         if (this.amountPaye <= 0) {
-          this.router.navigate(['/cardetails/' + this.carId]);
+          this.router.navigate(['/cars/' + this.carId]);
           this.toastrService.error(
-            'Araç listesine yönlendiriliyorsunuz',
-            'Hatalı işlem'
+            'Amount pay negatif'
           );
         } else {
           this.paymentServise.setRental(carToBeRented, this.amountPaye);
@@ -149,8 +157,7 @@ export class CarDetailsComponent implements OnInit {
 
           setTimeout(() => {
             this.toastrService.info(
-              'Ödeme sayfasına yönlendiriliyorsunuz...',
-              'Ödeme İşlemleri'
+              'Ödeme sayfasına yönlendiriliyorsunuz...'
             );
           }, 1000);
 

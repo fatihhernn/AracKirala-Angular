@@ -16,7 +16,7 @@ export class RentalService {
 
   getRentals(): Observable<ListResponseModel<RentalDetailDto>> {
     let newPath = this.apiUrl + "/getrentaldetails"
-    return this.httpClient.get<ListResponseModel<RentalDetailDto>>(this.apiUrl);
+    return this.httpClient.get<ListResponseModel<RentalDetailDto>>(newPath);
   }
 
   

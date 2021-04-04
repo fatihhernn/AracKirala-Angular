@@ -11,46 +11,46 @@ import { RentalService } from 'src/app/services/rental.service';
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent implements OnInit {
+  carDetail: CarDetailDto[] = [];
+  carToBeRented: Rental;
+  payment: Payment;
 
-  carDetail: CarDetailDto[]=[];
-  carToBeRented:Rental;
-  payment:Payment;
+  carBrandName: string;
+  carModelName: string;
 
-  carBrandName:string;
-  carModelName:string;
+  //Payment
+  cardName!: string;
+  cardNumber!: string;
+  cardDateMonth!: string;
+  cardDateYear!: string;
+  cardDate: string;
+  cardCvv!: string;
+  amountPaye: number;
 
-  //Payment 
-  cardName!:string;
-  cardNumber!:string;
-  cardDateMonth!:string;
-  cardDateYear!:string;
-  cardDate:string;
-  cardCvv!:string;
-  amountPaye:number;
-
-  returnPayAddMessega:string;
+  returnPayAddMessega: string;
 
   constructor(
-    private activatedRoute:ActivatedRoute,
-    private router:Router,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private toastrService: ToastrService,
-    private rentalService:RentalService,
-    private paymentService:PaymentService,
-    private carService: CarService,
-
-  ) { }
+    private rentalService: RentalService,
+    private paymentService: PaymentService,
+    private carService: CarService
+  ) {}
 
   ngOnInit(): void {
-
     this.carToBeRented = this.paymentService.getRental();
     this.amountPaye = this.paymentService.getRentalAmountPaye();
 
-    if ( (this.carToBeRented === undefined) || (this.amountPaye <= 0) ){
+    if (this.carToBeRented === undefined || this.amountPaye <= 0) {
       this.router.navigate(['/cars']);
-      this.toastrService.error("Araç listesine yönlendiriliyorsunuz", "Hatalı işlem");
+      this.toastrService.error(
+        'Araç listesine yönlendiriliyorsunuz',
+        'Hatalı işlem'
+      );
     }
     this.getCarDetailById(this.carToBeRented.carId);
   }
@@ -62,33 +62,33 @@ export class PaymentComponent implements OnInit {
       this.carModelName = this.carDetail[0].description;
     });
   }
-  
-  createPayment(){
-    if ( (this.cardName === undefined) || (!this.cardName) ) {
+
+  createPayment() {
+    if (this.cardName === undefined || !this.cardName) {
       this.toastrService.warning('Kart Sahibi bilgisini kontrol ediniz.');
-    }
-    else if ( (this.cardNumber === undefined) || (!this.cardNumber) ){
+      return;
+    } else if (this.cardNumber === undefined || !this.cardNumber) {
       this.toastrService.warning('Kart Numarası bilgisini kontrol ediniz.');
-    }
-    else if ( (this.cardDateMonth === undefined) || (!this.cardDateMonth) )  {
+      return;
+    } else if (this.cardDateMonth === undefined || !this.cardDateMonth) {
       this.toastrService.warning('Tarih Ay bilgisini kontrol ediniz.');
-    }
-    else if ( (this.cardDateYear === undefined) || (!this.cardDateYear) )  {
+      return;
+    } else if (this.cardDateYear === undefined || !this.cardDateYear) {
       this.toastrService.warning('Tarih Yıl bilgisini kontrol ediniz.');
-    }
-    else if ( (this.cardCvv === undefined) || (!this.cardCvv)  ) {
+      return;
+    } else if (this.cardCvv === undefined || !this.cardCvv) {
       this.toastrService.warning('CVV bilgisini kontrol ediniz.');
-    }
-    else{
-      this.cardDate = this.cardDateMonth + "/" + this.cardDateYear;
+      return;
+    } else {
+      this.cardDate = this.cardDateMonth + '/' + this.cardDateYear;
 
       this.payment = {
-        cardNameSurname : this.cardName,
-        cardNumber : this.cardNumber,
-        cardExpiryDate : this.cardDate,
-        cardCvv : this.cardCvv,
-        amountPaye : this.amountPaye
-      }
+        cardNameSurname: this.cardName,
+        cardNumber: this.cardNumber,
+        cardExpiryDate: this.cardDate,
+        cardCvv: this.cardCvv,
+        amountPaye: this.amountPaye,
+      };
 
       this.paymentService.add(this.payment).subscribe(
         (response) => {
@@ -114,7 +114,6 @@ export class PaymentComponent implements OnInit {
           this.toastrService.error("Ödeme Başarısız");
         }
       )
-    } 
+    }
   }
-
 }
