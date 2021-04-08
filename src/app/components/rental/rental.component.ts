@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Rental } from 'src/app/models/rental';
 import { RentalDetailDto } from 'src/app/models/rentalDetailDto';
 import { RentalService } from 'src/app/services/rental.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-rental',
@@ -13,7 +14,7 @@ export class RentalComponent implements OnInit {
   rentalDetails: RentalDetailDto[] = [];
   dataLoaded = false;
 
-  constructor(private rentalService: RentalService) {}
+  constructor(private rentalService: RentalService,private router:Router) {}
 
   ngOnInit(): void {
     this.getRentals()
@@ -26,6 +27,9 @@ export class RentalComponent implements OnInit {
     });
   }
 
+  back(){
+    this.router.navigate(["/cars"])
+  }
 
-  
+
 }

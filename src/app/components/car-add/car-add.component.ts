@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, FormControl, Validator, Validators} from '@angular/forms';
 import {CarService} from '../../services/car.service';
 import {ToastrService} from 'ngx-toastr';
+import {Brand} from '../../models/brand';
+import {BrandService} from '../../services/brand.service';
+import {ColorService} from '../../services/color.service';
+import {Color} from '../../models/color';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-car-add',
@@ -11,13 +16,32 @@ import {ToastrService} from 'ngx-toastr';
 export class CarAddComponent implements OnInit {
 
   carAddForm:FormGroup;
-  constructor(private formBuilder: FormBuilder,private carService:CarService,private toastrService:ToastrService) {
+
+  brands: Brand[] = [];
+  colors: Color[]=[];
+
+  constructor(private router:Router,private colorService:ColorService, private brandService: BrandService,private formBuilder: FormBuilder,private carService:CarService,private toastrService:ToastrService) {
 
   }
 
   ngOnInit(): void {
     this.createCarAdd()
+    this.getBrands();
+    this.getColors();
   }
+
+  getBrands() {
+    this.brandService.getBrands().subscribe((response) => {
+      this.brands = response.data;
+    });
+  }
+
+  getColors() {
+    this.colorService.getColors().subscribe((response) => {
+      this.colors = response.data;
+    });
+  }
+
 
 
    createCarAdd(){
@@ -32,8 +56,23 @@ export class CarAddComponent implements OnInit {
   add(){
     if (this.carAddForm.valid){
       let carModel=Object.assign({},this.carAddForm.value)
+      console.log(carModel)
       this.carService.add(carModel).subscribe(response=>{
-        this.toastrService.success(response.message,"Başarılı")
+
+        this.toastrService.success(response.message,"Kayıt Başarılı")
+
+        setTimeout(() => {
+          this.toastrService.info(
+            'Ana sayfaya yönlendiriliyorsunuz'
+          );
+        }, 1000);
+
+        setTimeout(() => {
+          this.router.navigate(['/cars']);
+        }, 3000);
+
+
+
       },responseError=>{
         if(responseError.error.Errors.length>0){
           //console.log(responseError.error.Errors)
@@ -47,5 +86,10 @@ export class CarAddComponent implements OnInit {
       this.toastrService.error("Formunuz eksik", "Dikkat!")
     }
   }
+
+  back(){
+    this.router.navigate(["/cars"])
+  }
+
 
 }

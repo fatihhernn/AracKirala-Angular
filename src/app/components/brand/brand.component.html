@@ -5,7 +5,7 @@
     <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
-    
+
     <select (change)="setCurrentBrand()" [(ngModel)]="currentBrand" name="brandSelect" class="form-select" aria-label="Markalar">
       <option [ngValue]="allBrand" [selected]="allBrandSelected()" >Tüm Markalar</option>
       <option [ngValue]="brand" *ngFor="let brand of brands" >{{ brand.description }}</option>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Car } from 'src/app/models/car';
 import { CarDetailDto } from 'src/app/models/carDetailDto';
 import { CarImage } from 'src/app/models/carImage';
@@ -15,14 +17,20 @@ export class CarComponent implements OnInit {
 
 
   carDetails:CarDetailDto[]=[]
+
   carImages:CarImage[]=[]
-  
+
+
+
+  selectedCar:Car;
+
+  carUpdateForm:FormGroup;
 
   dataLoaded = false;
   txtColor=""
   txtBrand=""
 
-  constructor(private carService:CarService,private activatedRoute:ActivatedRoute,private carImageService:CarImageService) { }
+  constructor(private formBuilder:FormBuilder,private carService:CarService,private activatedRoute:ActivatedRoute,private carImageService:CarImageService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
@@ -37,10 +45,10 @@ export class CarComponent implements OnInit {
       }
       else{
         this.getCars()
-       
+
       }
     })
-    
+
   }
 
   getCars(){
@@ -58,7 +66,7 @@ export class CarComponent implements OnInit {
     })
   }
 
-  
+
   getAllCarsByColorId(colorId:number){
     this.carService.getCarsByColor(colorId).subscribe(response=>{
       this.carDetails=response.data
@@ -73,6 +81,17 @@ export class CarComponent implements OnInit {
     })
   }
 
+  delete(){
+
+  }
+  edit(){
+
+  }
 
 
+
+
+  updateCar() {
+
+  }
 }

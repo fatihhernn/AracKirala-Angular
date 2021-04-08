@@ -1,59 +1,53 @@
 
+<div class="card mt-3">
+  <div class="card-header">
+    <h5 class="title">Müşteriler</h5>
+    <div class="card-body">
 
-<div class="panel-footer text-center">
-    <span class="d-block p-1 bg-primary text-white" style="margin-top: 10px"
-      ><h5>Müşteriler</h5></span
-    >
-  </div>
-  
-  <div
-    *ngIf="dataLoaded == false"
-    class="spinner-border text-primary"
-    role="status"
-  >
-    <span class="visually-hidden">Loading...</span>
-  </div>
-  
-  <table
-    *ngIf="dataLoaded == true"
-    id="example"
-    class="table table-striped table-bordered"
-    cellspacing="0"
-    width="100%"
-  >
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>UserId</th>
-        <th>Company</th>
-        
-        
-        <th style="text-align: center; width: 100px">
-          <button
-            type="button"
-            data-func="dt-add"
-            class="badge bg-info dt-add"
-          >
-            <span class="glyphicon glyphicon-plus" aria-hidden="true">Ekle</span>
-          </button>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let customer of customers">
-        <td>{{ customer.id }}</td>
-        <td>{{ customer.userId }}</td>
-        <td>{{ customer.companyName }}</td>
-        <td>
-           
+      <table
+        *ngIf="dataLoaded == true"
+        id="example"
+        class="table table-striped table-bordered"
+        cellspacing="0"
+        width="100%"
+      >
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>UserId</th>
+          <th>Company</th>
+
+
+          <th style="text-align: center; width: 100px">
             
-          
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let customer of customers">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.userId }}</td>
+          <td>{{ customer.companyName }}</td>
+          <td>
+
+
+
             <div style="text-align: center; width: 100px" class="d-grid gap-2 d-md-block">
-                <button class="badge bg-danger" type="button">Sil</button>
-                <button class="badge bg-secondary" type="button">Düzenle</button>
-              </div>
-         
-        </td>
-      </tr>
-    </tbody>
-  </table>
+              <button class="badge bg-danger" type="button">Sil</button>
+              <button class="badge bg-secondary" type="button">Düzenle</button>
+            </div>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-fill btn-success" (click)="add()">Ekle</button>
+      <button class="btn btn-fill btn-danger m-lg-2" (click)="back()">Geri</button>
+    </div>
+  </div>
+
+</div>

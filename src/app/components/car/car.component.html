@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-md-3 mt-3">
+
     <app-sidebar></app-sidebar>
+
   </div>
 
   <div class="col-md-9 mt-9">
@@ -51,6 +53,7 @@
       <th scope="col">Renk</th>
       <th scope="col">Günlük Fiyat</th>
       <th scope="col">Tanım</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -59,10 +62,32 @@
       <td>{{ car.colorName }}</td>
       <td>{{ car.dailyPrice }}</td>
       <td>{{ car.description }}</td>
+      <td class="operations">
+        <button
+          type="button"
+          class="badge bg-success"
+          data-bs-toggle="modal"
+          data-bs-target="#updateColorModal"
+          routerLink="/cars/update/{{ car.carId }}"
+          style="margin-right: 16px"
+        >
+          Düzenle
+        </button>
+        <button
+          type="button"
+          class="badge bg-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#deleteColorModal"
+          routerLink="cars/delete/{{ car.carId }}"
+        >
+          Sil
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
 
   </div>
 </div>
+
 

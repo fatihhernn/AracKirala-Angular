@@ -17,16 +17,8 @@ import { PaymentService } from 'src/app/services/payment.service';
   styleUrls: ['./car-details.component.css'],
 })
 export class CarDetailsComponent implements OnInit {
-  
-  carDetail: CarDetailDto = {
-    brandId: 0,
-    brandName: '',
-    carId: 0,
-    colorId: 0,
-    colorName: '',
-    dailyPrice: 0,
-    description: '',
-  };
+
+  carDetail: CarDetailDto ;
 
 
   carImages: CarImage[] = [];
@@ -71,9 +63,8 @@ export class CarDetailsComponent implements OnInit {
   }
 
 
-
   getCarDetailsById(carId: number) {
-    this.carService.getCarByCarId(carId).subscribe((response) => {
+    this.carService.getCarDetailByCarId(carId).subscribe((response) => {
       this.carDetail = response.data[0];
     });
   }
@@ -115,11 +106,11 @@ export class CarDetailsComponent implements OnInit {
       this.toastrService.error('Kiralama Tarihi ve Teslim Tarihi aynı olamaz.');
       return;
     } else {
-      
+
         this.toastrService.info(
           'Bilgileriniz kontrol ediliyor.'
         );
-     
+
     }
 
     this.carId = carDetail.carId;
@@ -177,7 +168,7 @@ export class CarDetailsComponent implements OnInit {
             'Kiralama Başarısız'
           );
         }, 1000);
-        
+
       }
     );
   }

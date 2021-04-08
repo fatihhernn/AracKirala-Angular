@@ -22,6 +22,9 @@ import { CarFilterComponent } from './components/car-filter/car-filter.component
 import { PaymentComponent } from './components/payment/payment.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CarAddComponent } from './components/car-add/car-add.component';
+import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { BrandDetailsComponent } from './components/brand-details/brand-details.component';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
 
 
 
@@ -44,7 +47,10 @@ import { CarAddComponent } from './components/car-add/car-add.component';
     CarFilterComponent,
     PaymentComponent,
     SidebarComponent,
-    CarAddComponent
+    CarAddComponent,
+    BrandAddComponent,
+    BrandDetailsComponent,
+    CarUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,8 @@ import { CarAddComponent } from './components/car-add/car-add.component';
       positionClass: 'toast-bottom-right'
     }),
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent],

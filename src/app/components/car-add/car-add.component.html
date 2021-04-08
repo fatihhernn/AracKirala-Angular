@@ -1,25 +1,26 @@
-<div class="content">
-  <div class="col-md-6">
-    <div class="card">
+
+    <div class="card mt-3">
       <div class="card-header">
         <h5 class="title">Araç Ekle</h5>
         <div class="card-body">
           <form [formGroup]="carAddForm">
 
-
-
-
             <div class="mb-3">
-              <label for="brandId">Marka Id</label>
+              <label for="brandId">Marka Seçiniz</label>
               <div class="form-group">
-                <input class="form-control" type="number" id="brandId" formControlName="brandId" placeholder="Marka Id">
+                <select class="form-control form-select" type="text" id="brandId" formControlName="brandId" name="brandSelect" placeholder="Marka Seçiniz" aria-label="Markalar">
+                  <option [ngValue]="brand.id" *ngFor="let brand of brands" >{{ brand.description }}</option>
+                </select>
               </div>
             </div>
 
+
             <div class="mb-3">
-              <label for="colorId">Renk Id</label>
+              <label for="colorId">Renk Seçiniz</label>
               <div class="form-group">
-                <input class="form-control" type="number" id="colorId" formControlName="colorId" placeholder="Renk Id">
+                <select class="form-control form-select" type="text" id="colorId" formControlName="colorId" name="colorSelect" placeholder="Renk Seçiniz" aria-label="Renkler">
+                  <option [ngValue]="color.id" *ngFor="let color of colors" >{{ color.description }}</option>
+                </select>
               </div>
             </div>
 
@@ -48,11 +49,9 @@
           </form>
         </div>
         <div class="card-footer">
-          <button class="btn btn-fill btn-primary" (click)="add()">Ekle</button>
+          <button class="btn btn-fill btn-success" (click)="add()">Ekle</button>
+          <button class="btn btn-fill btn-danger m-lg-2" (click)="back()">Geri</button>
         </div>
       </div>
 
     </div>
-  </div>
-
-</div>

@@ -14,7 +14,7 @@ import { RentalService } from 'src/app/services/rental.service';
   styleUrls: ['./payment.component.css'],
 })
 export class PaymentComponent implements OnInit {
-  carDetail: CarDetailDto[] = [];
+  carDetail: CarDetailDto;
   carToBeRented: Rental;
   payment: Payment;
 
@@ -56,7 +56,7 @@ export class PaymentComponent implements OnInit {
   }
 
   getCarDetailById(carId: number) {
-    this.carService.getCarByCarId(carId).subscribe((response) => {
+    this.carService.getCarDetailByCarId(carId).subscribe((response) => {
       this.carDetail = response.data;
       this.carBrandName = this.carDetail[0].brandName;
       this.carModelName = this.carDetail[0].description;
@@ -93,9 +93,9 @@ export class PaymentComponent implements OnInit {
       this.paymentService.add(this.payment).subscribe(
         (response) => {
           var splitted = response.message.toString().split("-");
-          this.returnPayAddMessega = splitted[0]; 
+          this.returnPayAddMessega = splitted[0];
           this.carToBeRented.paymentId = Number(splitted[1]);
-          
+
           this.toastrService.success(this.returnPayAddMessega, "Ödeme Başarılı");
 
           console.log(this.carToBeRented);

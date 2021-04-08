@@ -1,6 +1,6 @@
 <div class="card mt-3">
   <div class="card-header">
-    <h5 class="title">Kiralanan Araçlar</h5>
+    <h5 class="title">Araç Marka Detayları</h5>
     <div class="card-body">
 
       <table
@@ -13,11 +13,8 @@
         <thead>
         <tr>
           <th>Id</th>
-          <th>Marka</th>
-          <th>Müşteri</th>
-          <th>Ödenen Ücret</th>
-          <th>Kiralama Tarihi</th>
-          <th>Teslim Tarihi</th>
+          <th>Marka Açıklaması</th>
+
 
           <th style="text-align: center; width: 100px">
 
@@ -25,27 +22,24 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let rental of rentalDetails">
-          <td>{{ rental.rentalId }}</td>
-          <td>{{ rental.brandName }}</td>
-          <td>{{ rental.fullName }}</td>
-          <td>{{ rental.amountPaye | currency:"₺" }}</td>
-          <td>{{ rental.rentDate | date: 'dd/MM/yyyy HH:mm' }}</td>
-          <td>{{ rental.returnDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+        <tr *ngFor="let brandDetail of brandDetails">
+          <td>{{ brandDetail.id }}</td>
+          <td>{{ brandDetail.description }}</td>
 
           <td>
+
             <div style="text-align: center; width: 100px" class="d-grid gap-2 d-md-block">
-              <button class="badge bg-danger" type="button">Sil</button>
-              <button class="badge bg-secondary" type="button">Düzenle</button>
+              <button class="badge bg-danger" type="button" (click)="delete()">Sil</button>
+              <button class="badge bg-secondary " type="button" (click)="edit()">Düzenle</button>
             </div>
+
           </td>
         </tr>
         </tbody>
       </table>
-
     </div>
     <div class="card-footer">
-
+      <button class="btn btn-fill btn-success" (click)="add()">Ekle</button>
       <button class="btn btn-fill btn-danger m-lg-2" (click)="back()">Geri</button>
     </div>
   </div>
