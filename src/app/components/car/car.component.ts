@@ -17,6 +17,7 @@ export class CarComponent implements OnInit {
 
 
   carDetails:CarDetailDto[]=[]
+  carIdToDelete: Car;
 
   carImages:CarImage[]=[]
 
@@ -30,7 +31,7 @@ export class CarComponent implements OnInit {
   txtColor=""
   txtBrand=""
 
-  constructor(private formBuilder:FormBuilder,private carService:CarService,private activatedRoute:ActivatedRoute,private carImageService:CarImageService) { }
+  constructor(private router:Router,private toastrService:ToastrService,private formBuilder:FormBuilder,private carService:CarService,private activatedRoute:ActivatedRoute,private carImageService:CarImageService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
@@ -45,7 +46,6 @@ export class CarComponent implements OnInit {
       }
       else{
         this.getCars()
-
       }
     })
 
@@ -81,17 +81,29 @@ export class CarComponent implements OnInit {
     })
   }
 
-  delete(){
-
-  }
-  edit(){
-
+  setCarToDelete(carId: number) {
+    this.carIdToDelete = Object.assign({ id: carId });
   }
 
 
+  deleteCar() {
+    console.log( this.carIdToDelete.id)
+    this.carService.carDelete(this.carIdToDelete.id).subscribe(
+      (response) => {
+        this.toastrService.success(response.message);
+        this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => this.router.navigate(['cars']));
+      },
+      (responseError) => {
+          if (responseError.error.Errors.length>0){
+            for (let i;i<responseError.error.Errors.length;i++)
+              this.toastrService.error(responseError.error.Errors[i].ErrorMessage,"Doğrulama Hatası!")
 
-
-  updateCar() {
-
+          }
+      }
+    );
   }
+
+
 }

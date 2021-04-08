@@ -1,93 +1,134 @@
 <div class="row">
   <div class="col-md-3 mt-3">
-
     <app-sidebar></app-sidebar>
-
   </div>
 
   <div class="col-md-9 mt-9">
     <div
-  *ngIf="dataLoaded == false"
-  class="spinner-border text-danger d-flex mx-auto"
-  role="status"
+      *ngIf="dataLoaded == false"
+      class="spinner-border text-danger d-flex mx-auto"
+      role="status"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <h5>Araç Listesi</h5>
+    </div>
+    <hr />
+    <div class="row g-3">
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="txtColor"
+          placeholder="Renk Arayınız"
+          [(ngModel)]="txtColor"
+        />
+      </div>
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control"
+          id="txtBrand"
+          placeholder="Marka Arayınız"
+          [(ngModel)]="txtBrand"
+        />
+      </div>
+    </div>
+    <hr />
+
+    <div *ngIf="txtBrand" class="alert alert-info">
+      {{ txtBrand }} arıyorsunuz..
+    </div>
+
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Marka</th>
+          <th scope="col">Renk</th>
+          <th scope="col">Günlük Fiyat</th>
+          <th scope="col">Tanım</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let car of carDetails | brandPipe: txtBrand | colorPipe: txtColor
+          "
+        >
+          <td>{{ car.brandName }}</td>
+          <td>{{ car.colorName }}</td>
+          <td>{{ car.dailyPrice }}</td>
+          <td>{{ car.description }}</td>
+          <td>
+            <span
+              type="button"
+              class="badge bg-success"
+              routerLink="/cars/update/{{ car.carId }}"
+              style="margin-right: 16px"
+            >
+              Düzenle
+            </span>
+            <span
+              type="button"
+              class="badge bg-danger me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal"
+              (click)="setCarToDelete(car.carId)"
+            >
+              Sil
+            </span>
+            <span
+              class="badge bg-info me-2"
+              type="button"
+              routerLink="/cardetail/{{ car.carId }} "
+            >
+              Kirala</span
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Delete modal -->
+<div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
 >
-  <span class="visually-hidden">Loading...</span>
-</div>
-
-
-
-<div class="d-flex justify-content-center">
-  <h5>Araç Listesi</h5>
-</div>
-<hr />
-<div class="row g-3">
-  <div class="col-md-6">
-    <input
-      type="text"
-      class="form-control"
-      id="txtColor"
-      placeholder="Renk Arayınız"
-      [(ngModel)]="txtColor"
-    />
-  </div>
-  <div class="col-md-6">
-    <input
-      type="text"
-      class="form-control"
-      id="txtBrand"
-      placeholder="Marka Arayınız"
-      [(ngModel)]="txtBrand"
-    />
-  </div>
-</div>
-<hr />
-
-<div *ngIf="txtBrand" class="alert alert-info">
-  {{ txtBrand }} arıyorsunuz..
-</div>
-
-<table class="table table-striped table-sm">
-  <thead>
-    <tr>
-      <th scope="col">Marka</th>
-      <th scope="col">Renk</th>
-      <th scope="col">Günlük Fiyat</th>
-      <th scope="col">Tanım</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let car of carDetails | brandPipe:txtBrand | colorPipe :txtColor"  routerLink="/cardetail/{{ car.carId }} ">
-      <td>{{ car.brandName }}</td>
-      <td>{{ car.colorName }}</td>
-      <td>{{ car.dailyPrice }}</td>
-      <td>{{ car.description }}</td>
-      <td class="operations">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Araç Silinecektir!</h5>
         <button
           type="button"
-          class="badge bg-success"
-          data-bs-toggle="modal"
-          data-bs-target="#updateColorModal"
-          routerLink="/cars/update/{{ car.carId }}"
-          style="margin-right: 16px"
-        >
-          Düzenle
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <span>Aracı silmek istediğnize emin misiniz ?</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          İptal
         </button>
         <button
+          (click)="deleteCar()"
           type="button"
-          class="badge bg-danger"
-          data-bs-toggle="modal"
-          data-bs-target="#deleteColorModal"
-          routerLink="cars/delete/{{ car.carId }}"
+          data-bs-dismiss="modal"
+          class="btn btn-primary"
         >
           Sil
         </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
+      </div>
+    </div>
   </div>
 </div>
-
-
