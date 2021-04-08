@@ -26,6 +26,7 @@ import { BrandAddComponent } from './components/brand-add/brand-add.component';
 import { BrandDetailsComponent } from './components/brand-details/brand-details.component';
 import { CarUpdateComponent } from './components/car-update/car-update.component';
 import { ColorAddComponent } from './components/color-add/color-add.component';
+import { ColorDetailsComponent } from './components/color-details/color-details.component';
 
 
 
@@ -53,6 +54,7 @@ import { ColorAddComponent } from './components/color-add/color-add.component';
     BrandDetailsComponent,
     CarUpdateComponent,
     ColorAddComponent,
+    ColorDetailsComponent,
 
   ],
   imports: [
