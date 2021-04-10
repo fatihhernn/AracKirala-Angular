@@ -3,6 +3,7 @@ export interface Car{
     brandId: number
     colorId: number
     modelYear: Date
-    description: string                                                                                              
+    description: string
     dailyPrice: number
+    minFindexScore:number
 }

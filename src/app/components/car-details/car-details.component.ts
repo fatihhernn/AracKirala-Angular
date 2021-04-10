@@ -125,51 +125,72 @@ export class CarDetailsComponent implements OnInit {
       returnDate: this.returnDate,
     };
 
-    this.rentalService.checkCarStatus(carToBeRented).subscribe(
-      (response) => {
-        this.toastrService.success(
-          response.message.toString(),
-          'Tarihler Uygun'
-        );
+    //findex puanı kontrol et
+    this.rentalService.checkFindexScore(carToBeRented).subscribe(response=>{
+      this.toastrService.success(
+        response.message.toString(),"Findeks puanını uygun"
+      );
 
-        var date1 = new Date(this.returnDate.toString());
-        var date2 = new Date(this.rentDate.toString());
-        var difference = date1.getTime() - date2.getTime();
-        var numberOfDays = Math.ceil(difference / (1000 * 3600 * 24));
-        this.amountPaye = numberOfDays * this.carDailyPrice;
 
-        if (this.amountPaye <= 0) {
-          this.router.navigate(['/cars/' + this.carId]);
-          this.toastrService.error(
-            'Amount pay negatif'
+      //tarihlerin uygunluğunu kontrol et
+      this.rentalService.checkCarStatus(carToBeRented).subscribe(
+        (response) => {
+          this.toastrService.success(
+            response.message.toString(),
+            'Tarihler Uygun'
           );
-        } else {
-          this.paymentServise.setRental(carToBeRented, this.amountPaye);
 
-          setTimeout(() => {
-            this.toastrService.success('Bilgileriniz onaylandı.');
-          }, 1000);
+          var date1 = new Date(this.returnDate.toString());
+          var date2 = new Date(this.rentDate.toString());
+          var difference = date1.getTime() - date2.getTime();
+          var numberOfDays = Math.ceil(difference / (1000 * 3600 * 24));
+          this.amountPaye = numberOfDays * this.carDailyPrice;
 
+          if (this.amountPaye <= 0) {
+            this.router.navigate(['/cars/' + this.carId]);
+            this.toastrService.error(
+              'Amount pay negatif'
+            );
+          } else {
+            this.paymentServise.setRental(carToBeRented, this.amountPaye);
+
+            setTimeout(() => {
+              this.toastrService.success('Bilgileriniz onaylandı.');
+            }, 1000);
+
+            setTimeout(() => {
+              this.toastrService.info(
+                'Ödeme sayfasına yönlendiriliyorsunuz...'
+              );
+            }, 1000);
+
+            setTimeout(() => {
+              this.router.navigate(['/payments']);
+            }, 3000);
+          }
+        },
+        (error) => {
           setTimeout(() => {
-            this.toastrService.info(
-              'Ödeme sayfasına yönlendiriliyorsunuz...'
+            this.toastrService.error(
+              'İstenilen Tarih için kiralama yapılamıyor',
+              'Kiralama Başarısız'
             );
           }, 1000);
 
-          setTimeout(() => {
-            this.router.navigate(['/payments']);
-          }, 3000);
         }
-      },
-      (error) => {
-        setTimeout(() => {
-          this.toastrService.error(
-            'İstenilen Tarih için kiralama yapılamıyor',
-            'Kiralama Başarısız'
-          );
-        }, 1000);
+      );
 
-      }
-    );
+
+    },error => {
+      setTimeout(() => {
+        this.toastrService.error(
+          'Findex puanınız uygun değil',
+          'Kiralama başarısız'
+        );
+      }, 1000);
+    })
+
+
+
   }
 }
