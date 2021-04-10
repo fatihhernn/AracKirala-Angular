@@ -11,12 +11,13 @@ import {BrandAddComponent} from './components/brand-add/brand-add.component';
 import {BrandDetailsComponent} from './components/brand-details/brand-details.component';
 import {CarUpdateComponent} from './components/car-update/car-update.component';
 import {LoginComponent} from './components/login/login.component';
+import {LoginGuard} from './guard/login.guard';
 
 const routes: Routes = [
   {path:"",pathMatch:"full",component:CarComponent},
   {path:"cars",component:CarComponent},
   {path:"login",component:LoginComponent},
-  {path:"cars/add",component:CarAddComponent},
+  {path:"cars/add",component:CarAddComponent,canActivate:[LoginGuard]},//login olmayan kişiyi açma
 
   {path:"brands/add",component:BrandAddComponent},
   {path:"brands/details",component:BrandDetailsComponent},

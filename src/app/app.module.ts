@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,12 +28,7 @@ import { CarUpdateComponent } from './components/car-update/car-update.component
 import { ColorAddComponent } from './components/color-add/color-add.component';
 import { ColorDetailsComponent } from './components/color-details/color-details.component';
 import { LoginComponent } from './components/login/login.component';
-
-
-
-
-
-
+import {AuthInterceptor} from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -57,7 +52,6 @@ import { LoginComponent } from './components/login/login.component';
     ColorAddComponent,
     ColorDetailsComponent,
     LoginComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -65,13 +59,12 @@ import { LoginComponent } from './components/login/login.component';
     HttpClientModule,
     FormsModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right'
+      positionClass: 'toast-bottom-right',
     }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
-
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
