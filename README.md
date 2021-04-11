@@ -10,13 +10,16 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## ⭐ Installation
 ```bash
 # Clone to repository
-$ git clone https://github.com/fatihhernn/ReCapProject.git
+$ git clone https://github.com/fatihhernn/RecapProjectFrontend.git
 
 # Go to the folder you cloned
-$ cd re-cap-project-with-csharp
+$ cd RecapProjectFrontend
 
 # Install dependencies
-$ dotnet restore
+$ code .
+
+# Install packages
+$ npm install
 
 # Run project
 $ ng serve --open
