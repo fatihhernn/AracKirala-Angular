@@ -1,15 +1,26 @@
 # RentACarFrontend
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.6.
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+<p align="center">
+  <img src="https://github.com/fatihhernn/RecapProjectFrontend/blob/master/Screenshot_1.png" width="600" alt=".netProject">
+</p>
 
-## Code scaffolding
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## ⭐ Installation
+```bash
+# Clone to repository
+$ git clone https://github.com/fatihhernn/ReCapProject.git
+
+# Go to the folder you cloned
+$ cd re-cap-project-with-csharp
+
+# Install dependencies
+$ dotnet restore
+
+# Run project
+$ ng serve --open
+```
 
 
 ## ⭐ Projemizi localimize kaydettikten sonra oluşan klasörlerimiz 
